@@ -1,6 +1,6 @@
 name: bs_flutter_utils
 description: Helpers class for bs_flutter package (BreakPoint, Visibility, Color, etc)
-version: 1.0.0
+version: 1.0.2
 homepage: https://github.com/kholifanalfon/bs_flutter_utils.git
 
 environment:

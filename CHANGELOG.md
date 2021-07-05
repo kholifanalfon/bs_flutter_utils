@@ -1,3 +1,10 @@
-## 0.0.1
+## 1.0.2
+* BreakPoint state device
 
-* TODO: Describe initial release.
+## 1.0.1
+
+* Add BsShadow class (small, regular, large)
+
+## 1.0.0
+
+* Initial release

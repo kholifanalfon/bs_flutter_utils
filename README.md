@@ -1,6 +1,8 @@
 # bs_flutter_utils
 
-A new Flutter project.
-
-## Getting Started
+Helpers class for bs_flutter package:
+    [x] BsVisibility
+    [x] Color
+    [x] BreakPoint
+    [x] Shadow
 

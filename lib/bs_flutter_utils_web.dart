@@ -31,7 +31,8 @@ class BsFlutterUtilsWeb {
       default:
         throw PlatformException(
           code: 'Unimplemented',
-          details: 'bs_flutter_utils for web doesn\'t implement \'${call.method}\'',
+          details:
+              'bs_flutter_utils for web doesn\'t implement \'${call.method}\'',
         );
     }
   }

@@ -1,19 +1,4 @@
-
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-
-/// Class to handle package version
-class BsFlutterUtils {
-  static const MethodChannel _channel =
-  const MethodChannel('bs_flutter_utils');
-
-  static Future<String?> get platformVersion async {
-    final String? version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
-}
 
 /// To create screen category or to identified device size base on screen width
 /// And to define required properties in breakpoints
@@ -111,6 +96,72 @@ class BreakPoint {
       state: stateXs,
     );
   }
+
+  static bool isMobile(BuildContext context) {
+    BreakPoint breakPoint = BreakPoint.of(context);
+    return [BreakPoint.stateXs, BreakPoint.stateSm].contains(breakPoint.state);
+  }
+
+  static bool isTablet(BuildContext context) {
+    BreakPoint breakPoint = BreakPoint.of(context);
+    return [BreakPoint.stateMd, BreakPoint.stateLg].contains(breakPoint.state);
+  }
+
+  static bool isDesktop(BuildContext context) {
+    BreakPoint breakPoint = BreakPoint.of(context);
+    return [BreakPoint.stateXl, BreakPoint.stateXxl].contains(breakPoint.state);
+  }
+
+  static Widget? onMobile(BuildContext context, WidgetBuilder builder) =>
+      BreakPoint.isMobile(context) ? builder(context) : Container();
+
+  static Widget onTablet(BuildContext context, WidgetBuilder builder) =>
+      BreakPoint.isTablet(context) ? builder(context) : Container();
+
+  static Widget onDesktop(BuildContext context, WidgetBuilder builder) =>
+      BreakPoint.isDesktop(context) ? builder(context) : Container();
+
+  static Widget on(BuildContext context, {
+    Widget? mobile,
+    Widget? tablet,
+    Widget? desktop,
+  }) {
+    if(BreakPoint.isMobile(context)) {
+      if(mobile != null)
+        return mobile;
+
+      else if(tablet != null)
+        return tablet;
+
+      else if(desktop != null)
+        return desktop;
+
+      else
+        return Container();
+    }
+
+    else if(BreakPoint.isTablet(context)) {
+      if(tablet != null)
+        return tablet;
+
+      else if(desktop != null)
+        return desktop;
+
+      else
+        return Container();
+    }
+
+    else if(BreakPoint.isDesktop(context)) {
+      if(desktop != null)
+        return desktop;
+
+      else
+        return Container();
+    }
+
+    else
+      return Container();
+  }
 }
 
 /// If you need to hide some widget in some breakpoint use [BsVisibility]
@@ -152,11 +203,11 @@ class BsVisibility {
 
   /// Will hide in ([BreakPoint.stateSm], [BreakPoint.hiddenMd], [BreakPoint.hiddenMd]) breakpoint
   static const BsVisibility hiddenLg =
-  BsVisibility(breakPoints: [BreakPoint.stateXl, BreakPoint.stateXxl]);
+      BsVisibility(breakPoints: [BreakPoint.stateXl, BreakPoint.stateXxl]);
 
   /// Will hide in ([BreakPoint.stateSm], [BreakPoint.hiddenMd], [BreakPoint.hiddenMd], [BreakPoint.stateXl) breakpoint
   static const BsVisibility hiddenXl =
-  BsVisibility(breakPoints: [BreakPoint.stateXxl]);
+      BsVisibility(breakPoints: [BreakPoint.stateXxl]);
 
   /// Will only show on [BreakPoint.stateXxl] screen device
   static const BsVisibility hiddenXxl = BsVisibility(breakPoints: []);
@@ -164,7 +215,6 @@ class BsVisibility {
 
 /// Defines color
 class BsColor {
-
   static const Color color = Color(0xff212529);
 
   static const Color borderColor = Color(0xffdee2e6);
@@ -182,4 +232,25 @@ class BsColor {
   static const Color dangerShadow = Color(0xfff0a9b0);
 
   static const Color textError = Color(0xffdc3545);
+}
+
+class BsShadow {
+
+  static const BoxShadow small = BoxShadow(
+      color: Color(0xffd9d9d9),
+      spreadRadius: 2.0,
+      blurRadius: 4.0
+  );
+
+  static const BoxShadow regular = BoxShadow(
+    color: Color(0xffd9d9d9),
+    spreadRadius: 8.0,
+    blurRadius: 16.0
+  );
+
+  static const BoxShadow large = BoxShadow(
+      color: Color(0xffd9d9d9),
+      spreadRadius: 16.0,
+      blurRadius: 48.0
+  );
 }
